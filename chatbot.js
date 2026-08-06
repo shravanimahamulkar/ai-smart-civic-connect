@@ -1,5 +1,5 @@
 // AI CIVIC AGENT - USING YOUR KEY
-const GEMINI_API_KEY = "AQ.Ab8RN6LSm9oSsh4Oy0-q6VLUjb99pl87RVBCWCuFpMPiidPN0w";
+const GEMINI_API_KEY=" your key";
 
 const SYSTEM_PROMPT = `
 You are AI Smart Civic Connect AI Agent.
