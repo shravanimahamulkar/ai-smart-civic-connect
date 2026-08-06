@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint - Final</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{background:#eef3ff;font-family:Segoe UI}.card-box{background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.07)}
+.chat-window{height:320px;overflow-y:auto;background:#f8faff;border:1px solid #e2e8f0;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14px}.msg.ai{background:#e0e7ff;color:#1e3a8a;align-self:flex-start}.msg.user{background:#2563eb;color:#fff;align-self:flex-end}
+#dashboardView{display:none}
+</style>
+</head>
+<body>
+<nav class="navbar bg-white shadow-sm px-4"><b style="color:#2563eb">AI Smart Civic Connect</b></nav>
+
+<!-- COMPLAINT SECTION -->
+<div id="complaintView" class="container mt-4">
+<div class="row g-4">
+<div class="col-lg-5"><div class="card-box">
+<h6 class="fw-bold">🤖 AI Assistant - Hello!</h6>
+<div id="chatWindow" class="chat-window"><div class="msg ai">Hello! I am your Civic Assistant. Please describe your problem.</div></div>
+<div class="d-flex gap-2 mt-3"><input id="userMsg" class="form-control" placeholder="Type here..."><button class="btn btn-primary" onclick="sendMessage()">Send</button></div>
+</div></div>
+<div class="col-lg-7"><div class="card-box">
+<h6 class="fw-bold">File Complaint</h6>
+<select id="category" class="form-select mb-3"><option>Garbage</option><option>Pothole</option><option>Street Light</option><option>Water Supply</option><option>Drainage</option></select>
+<textarea id="description" class="form-control mb-3" rows="3" placeholder="Auto-filled from AI chat"></textarea>
+<div class="d-flex gap-2 mb-3"><input id="location" class="form-control" placeholder="Location"><button class="btn btn-light border" onclick="getGPS()">📍 GPS</button></div>
+<button onclick="submitComplaint()" style="background:#2563eb;color:#fff;border:none;width:100%;padding:13px;border-radius:12px;font-weight:700">Submit Complaint</button>
+</div></div>
+</div>
+</div>
+
+<!-- DASHBOARD SECTION - HIDDEN, WILL SHOW AFTER SUBMIT -->
+<div id="dashboardView" class="container mt-4">
+<div class="text-center mb-4"><div style="font-size:60px">✅</div><h2 style="color:#16a34a;font-weight:800">OK Done! Submitted</h2><p>Your complaint is now in Dashboard</p></div>
+<h5 class="fw-bold">Citizen Dashboard</h5>
+<div id="list"></div>
+<button onclick="location.reload()" class="btn btn-primary mt-3 w-100">+ File New Complaint</button>
+</div>
+
+<script>
+function addMsg(t,w){const a=document.getElementById('chatWindow');const d=document.createElement('div');d.className='msg '+w;d.innerText=t;a.appendChild(d);a.scrollTop=a.scrollHeight;}
+function sendMessage(){const i=document.getElementById('userMsg');const v=i.value.trim();if(!v)return;addMsg(v,'user');i.value="";setTimeout(()=>{let c="Garbage";let l=v.toLowerCase();if(l.includes("road")||l.includes("pothole"))c="Pothole";else if(l.includes("light"))c="Street Light";else if(l.includes("water"))c="Water Supply";document.getElementById('category').value=c;document.getElementById('description').value=v;addMsg("Hello! Detected: "+c+". Form filled. Now click Submit.","ai")},400);}
+function getGPS(){navigator.geolocation.getCurrentPosition(p=>document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4))}
+document.getElementById('userMsg').addEventListener('keypress',e=>{if(e.key==='Enter')sendMessage()});
+
+function submitComplaint(){
+ const cat=document.getElementById('category').value,desc=document.getElementById('description').value,loc=document.getElementById('location').value;
+ if(!desc){alert("Type message and click Send first");return;}
+ let arr=JSON.parse(localStorage.getItem('complaints')||"[]");
+ arr.push({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()});
+ localStorage.setItem('complaints',JSON.stringify(arr));
+ // SHOW DASHBOARD DIRECTLY - NO FILE OPEN
+ document.getElementById('complaintView').style.display='none';
+ document.getElementById('dashboardView').style.display='block';
+ let h="";arr.reverse().forEach(x=>{h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`});
+ document.getElementById('list').innerHTML=h;
+}
+</script>
+</body>
+</html>

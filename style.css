@@ -1,0 +1,5 @@
+:root{--blue:#0A4DA1;--green:#00C853}
+body{font-family:'Poppins',sans-serif;background:#F5F7FA}
+.navbar-brand{font-weight:700}
+.btn-primary{background:var(--blue);border:none;border-radius:10px}
+.card{border:none;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
