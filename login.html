@@ -2,53 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Smart Civic - Login</title>
   <style>
-    body{font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;background:#f0f4f8}
-    .box{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1);width:300px}
-    h2{text-align:center;margin-bottom:20px}
-    input{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
-    button{width:100%;padding:11px;background:#2563eb;color:white;border:none;border-radius:8px;cursor:pointer;margin-top:10px;font-weight:bold}
+    *{box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#eef2f7;margin:0}
+    .box{background:white;padding:32px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.1);width:100%;max-width:360px}
+    h2{text-align:center;margin:0 0 20px 0;color:#1e293b}
+    input{width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;outline:none}
+    input:focus{border-color:#2563eb;box-shadow:0 0 0 2px #dbeafe}
+    button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:10px;cursor:pointer;margin-top:14px;font-weight:600;font-size:15px}
     button:hover{background:#1d4ed8}
-    .note{font-size:12px;color:#666;text-align:center;margin-top:10px}
+    .info{font-size:13px;color:#64748b;text-align:center;margin-top:12px;background:#f8fafc;padding:8px;border-radius:8px}
   </style>
 </head>
 <body>
 
 <div class="box">
-  <h2>Login</h2>
+  <h2>AI Civic Login</h2>
   <form id="loginForm">
-    <input type="email" id="email" placeholder="Email - admin@civic.com" required />
-    <input type="password" id="password" placeholder="Password - admin123" required />
+    <input type="email" id="email" placeholder="Enter your Email" required />
+    <input type="password" id="password" placeholder="Enter Password (min 4)" required />
     <button type="submit">Login</button>
   </form>
-  <p class="note">Demo: admin@civic.com / admin123</p>
+  <div class="info">Any Email / Password will work<br>Ex: shravani@gmail.com / 1234</div>
 </div>
 
 <script>
-  // Firebase shivay Login Logic
-  const validUsers = [
-    { email: "admin@civic.com", password: "admin123", role: "admin" },
-    { email: "user@gmail.com", password: "1234", role: "user" }
-  ];
-
   document.getElementById("loginForm").addEventListener("submit", function(e){
     e.preventDefault();
+    
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
-    const found = validUsers.find(u => u.email === email && u.password === password);
-
-    if(found){
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("userEmail", found.email);
-      localStorage.setItem("userRole", found.role);
-      
-      alert("Login Successful! Welcome " + found.email);
-      window.location.href = "dashboard.html"; // Sir na dakhavaycha pudhcha page
-    } else {
-      alert("Invalid Email or Password!\nUse: admin@civic.com / admin123");
+    if (!email.includes("@")) {
+      alert("Please enter a valid Email!");
+      return;
     }
+    if (password.length < 4) {
+      alert("Password must be at least 4 characters!");
+      return;
+    }
+
+    // Save Login Session
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", email);
+    
+    alert("Login Successful! Welcome " + email);
+    window.location.href = "dashboard.html"; 
   });
 </script>
 
