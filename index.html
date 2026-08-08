@@ -77,5 +77,10 @@ function reply(q){let l=q.toLowerCase();if(l.includes("road")||l.includes("rasta
 function send(){let v=i.value.trim();if(!v)return;addMsg(v,"me");i.value="";setTimeout(()=>addMsg(reply(v)),400)}s.onclick=send;i.addEventListener("keypress",e=>{if(e.key=="Enter")send()});
 function doLogout(){localStorage.clear();sessionStorage.clear();alert("✅ Logout Success!");location.href="login.html";}
 </script>
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px; font-size:14px; line-height:1.8; margin-top:50px; border-top:3px solid #2563eb;">
+  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
+  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
+  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
+</footer>
 </body>
 </html>
