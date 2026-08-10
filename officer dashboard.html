@@ -6,9 +6,10 @@ import {firebaseConfig} from "./static/firebase-config.js";import{initializeApp}
 const app=initializeApp(firebaseConfig);const db=getFirestore(app);let all=[];
 async function load(){const s=await getDocs(collection(db,"complaints"));all=[];s.forEach(d=>all.push({id:d.id,...d.data()}));render(all);}function render(data){let h="";data.forEach(c=>{h+=`<div class='card p-3 mb-2'><div class='row'><div class='col-md-8'><b>${c.category}</b> - ${c.description}<br><small>📍 ${c.location} | UID: ${c.uid?.slice(0,6)}</small>${c.image?`<br><a href='${c.image}' target='_blank'>🖼️ View Image</a>`:''}</div><div class='col-md-4 text-end'><select onchange="upd('${c.id}',this.value)" class='form-select form-select-sm'><option ${c.status=='Pending'?'selected':''}>Pending</option><option ${c.status=='In Progress'?'selected':''}>In Progress</option><option ${c.status=='Resolved'?'selected':''}>Resolved</option></select><small class='text-success mt-1 d-block'>Firebase CRUD Live</small></div></div></div>`});list.innerHTML=h||"No data";}window.upd=async(id,st)=>{await updateDoc(doc(db,"complaints",id),{status:st});alert("Updated: "+st);};search.addEventListener('input',e=>{render(all.filter(c=>c.category.toLowerCase().includes(e.target.value.toLowerCase())||c.description.toLowerCase().includes(e.target.value.toLowerCase())));});filter.addEventListener('change',e=>{if(!e.target.value)render(all);else render(all.filter(c=>c.status==e.target.value));});load();
 </script>
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px; font-size:14px; line-height:1.8; margin-top:50px; border-top:3px solid #2563eb;">
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
   <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
   <b style="color:white;">Program:</b> Inplant Training 2026 <br>
+  <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
   <b style="color:white;">College:</b> Arvind Gavali College of Engineering
 </footer>
 </body>
