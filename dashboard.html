@@ -11,9 +11,10 @@ if(data.length==0)h=`<div class="card p-4 text-center text-muted">No complaints 
 else data.reverse().forEach(c=>{h+=`<div class="card p-3 mb-3"><b>${c.cat}</b> <span class="badge bg-warning text-dark float-end">${c.status}</span><p class="mt-2 mb-1">${c.desc}</p><small>📍 ${c.loc||'No location'} | 🕒 ${c.date}</small></div>`});
 document.getElementById('list').innerHTML=h;
 </script>
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px; font-size:14px; line-height:1.8; margin-top:50px; border-top:3px solid #2563eb;">
+<<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
   <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
   <b style="color:white;">Program:</b> Inplant Training 2026 <br>
+  <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
   <b style="color:white;">College:</b> Arvind Gavali College of Engineering
 </footer>
 </body>
