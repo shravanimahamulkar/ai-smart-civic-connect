@@ -6,4 +6,10 @@ import {firebaseConfig} from "./static/firebase-config.js";import{initializeApp}
 const app=initializeApp(firebaseConfig);const auth=getAuth(app);const db=getFirestore(app);
 onAuthStateChanged(auth,async(u)=>{if(!u){location.href="login.html";return;}const q=query(collection(db,"complaints"),where("uid","==",u.uid));const s=await getDocs(q);let h="";s.forEach(d=>{let c=d.data();let col=c.status=="Pending"?"warning":c.status=="In Progress"?"primary":"success";let pct=c.status=="Pending"?30:c.status=="In Progress"?70:100;h+=`<div class='card p-3 mb-2 bg-light'><div class='d-flex justify-content-between'><b>${c.category}</b><span class='badge bg-${col}'>${c.status}</span></div><small>${c.description}</small><br><small>📍 ${c.location||''}</small><div class='progress mt-2' style='height:7px'><div class='progress-bar bg-${col}' style='width:${pct}%'></div></div></div>`});document.getElementById('list').innerHTML=h||"No complaints found";});
 </script>
+  <footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
+  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
+  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
+  <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
+  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
+  </footer>
 </body></html>
