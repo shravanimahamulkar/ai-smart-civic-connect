@@ -2,27 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Smart Civic Connect</title>
+<title>AI Smart Civic Connect - Final</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>:root{--blue:#0A4DA1;--green:#00C853;--bg:#F5F7FA}body{font-family:'Poppins',sans-serif;background:var(--bg)} .hero{background:linear-gradient(135deg,#0A4DA1 0%,#00C853 100%);color:white;padding:80px 0 60px;border-radius:0 0 32px 32px} .card{border:none;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}</style>
+<style>
+:root{--blue:#0A4DA1;--green:#00C853;--bg:#F5F7FA}
+body{font-family:'Poppins',sans-serif;background:var(--bg)} 
+.hero{background:linear-gradient(135deg,#0A4DA1 0%,#00C853 100%);color:white;padding:80px 0 60px;border-radius:0 0 32px 32px} 
+.card{border:none;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.nav-link:hover{color:#0A4DA1 !important; font-weight:600}
+</style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
 <div class="container">
 <a class="navbar-brand fw-bold"><span style="color:#0A4DA1">AI Smart</span> <span style="color:#00C853">Civic Connect</span></a>
 <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
 <div class="collapse navbar-collapse" id="nav">
 <ul class="navbar-nav ms-auto align-items-center gap-2">
+
 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="complaint.html">Complaint</a></li>
+<li class="nav-item"><a class="nav-link" href="complaint-status.html">Status</a></li>
 <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
 <li class="nav-item"><a class="nav-link" href="analytics.html">Analytics</a></li>
 <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-<!-- YETHUN SURU - TIGHA BUTTON DISATIL -->
+<li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+
+<!-- ADMIN DROPDOWN - SAGLE ADMIN PAGES YAT DISATIL -->
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
+  <ul class="dropdown-menu shadow border-0 rounded-3">
+    <li><a class="dropdown-item" href="admin_login.html">🔐 Admin Login</a></li>
+    <li><a class="dropdown-item" href="admin.html">🛡️ Admin Panel</a></li>
+    <li><a class="dropdown-item" href="officer-dashboard.html">👮 Officer Dashboard</a></li>
+  </ul>
+</li>
+
 <li class="nav-item"><a class="btn btn-sm btn-outline-primary rounded-pill px-3" href="login.html">Login</a></li>
 <li class="nav-item"><a class="btn btn-sm btn-primary rounded-pill px-3" href="register.html">Register</a></li>
-<li class="nav-item"><a class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" href="#" onclick="doLogout()">Logout</a></li>
+<li class="nav-item"><a class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" href="logout.html" onclick="localStorage.clear();sessionStorage.clear();">Logout</a></li>
+
 </ul>
 </div>
 </div>
@@ -32,7 +53,7 @@
 <div class="container">
 <h1 class="fw-bold display-5">Smart City, Smart Complaint</h1>
 <p class="lead mt-2">AI Based Citizen Complaint & Smart City Management System</p>
-<p class="small opacity-75">Powered by Gemini AI + Chatbase AI + Firebase + Flask</p>
+<p class="small opacity-75">Gemini AI + Chatbase AI + Firebase + Flask | 12 Pages Live</p>
 <div class="mt-4">
 <a href="complaint.html" class="btn btn-light btn-lg fw-bold text-primary rounded-pill px-4">🤖 File Complaint with AI</a>
 <a href="register.html" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Get Started</a>
@@ -42,45 +63,32 @@
 <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">📍 Live GPS</span></div>
 <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">🖼️ Image Upload</span></div>
 <div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">💬 AI Chatbot</span></div>
-<div class="col-auto"><span class="badge bg-danger text-white rounded-pill px-3 py-2">🚪 Logout Added</span></div>
+<div class="col-auto"><span class="badge bg-white text-danger rounded-pill px-3 py-2">🔥 All 12 Pages Added</span></div>
 </div>
 </div>
 </section>
 
 <section class="container py-5 text-center">
-<h3 class="fw-bold" style="color:#0A4DA1">Why AI Smart Civic Connect?</h3>
-<p class="text-muted">11 Pages | Flask (app.py) | Firebase | Gemini + Chatbase AI</p>
-<div class="row g-3 mt-2">
-<div class="col-md-3 col-6"><div class="card p-4 h-100">🤖<br><b>Gemini AI</b><br><small class="text-muted">Auto category detection</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">💬<br><b>Chatbase AI</b><br><small class="text-muted">24/7 Chatbot</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">📍<br><b>Live Location</b><br><small class="text-muted">GPS + Storage</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">📊<br><b>Analytics</b><br><small class="text-muted">3 Dashboards</small></div></div>
+<h3 class="fw-bold" style="color:#0A4DA1">Project Modules (12 Pages)</h3>
+<p class="text-muted">Click on Admin dropdown to see Admin pages</p>
+<div class="row g-3 mt-3">
+<div class="col-md-3 col-6"><a href="complaint.html" style="text-decoration:none"><div class="card p-4 h-100">📝<br><b>Complaint</b></div></a></div>
+<div class="col-md-3 col-6"><a href="complaint-status.html" style="text-decoration:none"><div class="card p-4 h-100">🔍<br><b>Status Check</b></div></a></div>
+<div class="col-md-3 col-6"><a href="dashboard.html" style="text-decoration:none"><div class="card p-4 h-100">📊<br><b>User Dashboard</b></div></a></div>
+<div class="col-md-3 col-6"><a href="officer-dashboard.html" style="text-decoration:none"><div class="card p-4 h-100">👮<br><b>Officer Panel</b></div></a></div>
+<div class="col-md-3 col-6"><a href="admin.html" style="text-decoration:none"><div class="card p-4 h-100">🛡️<br><b>Admin Panel</b></div></a></div>
+<div class="col-md-3 col-6"><a href="analytics.html" style="text-decoration:none"><div class="card p-4 h-100">📈<br><b>Analytics</b></div></a></div>
+<div class="col-md-3 col-6"><a href="about.html" style="text-decoration:none"><div class="card p-4 h-100">ℹ️<br><b>About Us</b></div></a></div>
+<div class="col-md-3 col-6"><a href="contact.html" style="text-decoration:none"><div class="card p-4 h-100">📞<br><b>Contact</b></div></a></div>
 </div>
 </section>
 
-<footer class="bg-white border-top py-3 text-center small text-muted">© 2026 AI Smart Civic Connect | Flask | Firebase | AI Project</footer>
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px; font-size:14px; line-height:1.9; border-top:3px solid #2563eb;">
+  <b style="color:white;">Developed by:</b> Shravani Mahamulkar (CSE) <br>
+  <b style="color:white;">Project:</b> AI Smart Civic Connect | <b style="color:white;">Program:</b> Inplant Training 2026 <br>
+  <b style="color:white;">College:</b> Arvind Gavali College of Engineering, Satara
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- CHATBOT -->
-<div id="chatBtn" style="position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#0A4DA1,#00C853);color:white;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:9999">💬</div>
-<div id="chatBox" style="display:none;position:fixed;bottom:90px;right:20px;width:320px;background:white;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:9999;overflow:hidden">
-<div style="background:#0A4DA1;color:white;padding:10px 14px;display:flex;justify-content:space-between"><b>AI Agent</b><span id="closeChat" style="cursor:pointer">✕</span></div>
-<div id="chatMsgs" style="height:220px;overflow-y:auto;padding:10px;font-size:14px;background:#f8fafc"></div>
-<div style="display:flex;gap:5px;padding:8px"><input id="chatInput" class="form-control form-control-sm" placeholder="Vichara..."><button id="sendChat" class="btn btn-primary btn-sm">Send</button></div>
-</div>
-<script>
-const b=document.getElementById("chatBtn"),x=document.getElementById("chatBox"),m=document.getElementById("chatMsgs"),i=document.getElementById("chatInput"),s=document.getElementById("sendChat"),c=document.getElementById("closeChat");
-function addMsg(t,a){let d=document.createElement("div");d.style.marginBottom="6px";d.innerHTML=a=="me"?`<div style="text-align:right"><span style="background:#0A4DA1;color:#fff;padding:5px 9px;border-radius:10px;display:inline-block">${t}</span></div>`:`<div><span style="background:#fff;border:1px solid #ddd;padding:5px 9px;border-radius:10px;display:inline-block"><b style="color:#0A4DA1">AI:</b> ${t}</span></div>`;m.appendChild(d);m.scrollTop=m.scrollHeight}
-b.onclick=()=>{x.style.display="block";if(!m.innerHTML)addMsg("Namaskar! Road, Pani, Light vishayi vichara 🙏")};c.onclick=()=>x.style.display="none";
-function reply(q){let l=q.toLowerCase();if(l.includes("road")||l.includes("rasta"))return"Road issue 3 divsat solve hoil.";if(l.includes("pani")||l.includes("water"))return"Pani takrar Jal vibhagakade pathavli.";if(l.includes("light"))return"Light 24 tasat durusta hoil.";return"Dhanyawad! Takrar ghetli, team sampark karel."}
-function send(){let v=i.value.trim();if(!v)return;addMsg(v,"me");i.value="";setTimeout(()=>addMsg(reply(v)),400)}s.onclick=send;i.addEventListener("keypress",e=>{if(e.key=="Enter")send()});
-function doLogout(){localStorage.clear();sessionStorage.clear();alert("✅ Logout Success!");location.href="login.html";}
-</script>
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px; font-size:14px; line-height:1.8; margin-top:50px; border-top:3px solid #2563eb;">
-  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
-  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
-  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
-</footer>
 </body>
 </html>
