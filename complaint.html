@@ -7,19 +7,24 @@
 <style>
 body{background:#eef3ff;font-family:Segoe UI}.card-box{background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.07)}
 .chat-window{height:320px;overflow-y:auto;background:#f8faff;border:1px solid #e2e8f0;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14px}.msg.ai{background:#e0e7ff;color:#1e3a8a;align-self:flex-start}.msg.user{background:#2563eb;color:#fff;align-self:flex-end}
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14px;white-space:pre-line;line-height:1.6}.msg.ai{background:#e0e7ff;color:#1e3a8a;align-self:flex-start}.msg.user{background:#2563eb;color:#fff;align-self:flex-end}
 #dashboardView{display:none}
 </style>
 </head>
 <body>
 <nav class="navbar bg-white shadow-sm px-4"><b style="color:#2563eb">AI Smart Civic Connect</b></nav>
 
-<!-- COMPLAINT SECTION -->
 <div id="complaintView" class="container mt-4">
 <div class="row g-4">
 <div class="col-lg-5"><div class="card-box">
-<h6 class="fw-bold">🤖 AI Assistant - Hello!</h6>
-<div id="chatWindow" class="chat-window"><div class="msg ai">Hello! I am your Civic Assistant. Please describe your problem.</div></div>
+<h6 class="fw-bold">🤖 AI Assistant - Like Meta AI</h6>
+<div id="chatWindow" class="chat-window"><div class="msg ai">Hello! I am your AI Civic Assistant.
+
+I can help you in two ways:
+1. Answer your questions in clear and correct English.
+2. File your civic complaint automatically.
+
+How may I assist you today?</div></div>
 <div class="d-flex gap-2 mt-3"><input id="userMsg" class="form-control" placeholder="Type here..."><button class="btn btn-primary" onclick="sendMessage()">Send</button></div>
 </div></div>
 <div class="col-lg-7"><div class="card-box">
@@ -32,7 +37,6 @@ body{background:#eef3ff;font-family:Segoe UI}.card-box{background:#fff;border-ra
 </div>
 </div>
 
-<!-- DASHBOARD SECTION -->
 <div id="dashboardView" class="container mt-4">
 <div class="text-center mb-4"><div style="font-size:60px">✅</div><h2 style="color:#16a34a;font-weight:800">OK Done! Submitted</h2><p>Your complaint is now Live for all users</p></div>
 <h5 class="fw-bold">Citizen Dashboard (Live)</h5>
@@ -42,50 +46,69 @@ body{background:#eef3ff;font-family:Segoe UI}.card-box{background:#fff;border-ra
 
 <script>
 const API = "https://crudcrud.com/api/b4f83a0e2b034d7bb39be6897cf089c3/complaints";
-
 function addMsg(t,w){const a=document.getElementById('chatWindow');const d=document.createElement('div');d.className='msg '+w;d.innerText=t;a.appendChild(d);a.scrollTop=a.scrollHeight;}
-function sendMessage(){const i=document.getElementById('userMsg');const v=i.value.trim();if(!v)return;addMsg(v,'user');i.value="";setTimeout(()=>{let c="Garbage";let l=v.toLowerCase();if(l.includes("road")||l.includes("pothole"))c="Pothole";else if(l.includes("light"))c="Street Light";else if(l.includes("water"))c="Water Supply";document.getElementById('category').value=c;document.getElementById('description').value=v;addMsg("Detected: "+c+". Form filled. Now click Submit.","ai")},400);}
 function getGPS(){navigator.geolocation.getCurrentPosition(p=>document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4))}
 document.getElementById('userMsg').addEventListener('keypress',e=>{if(e.key==='Enter')sendMessage()});
 
-// REAL BACKEND WALA FUNCTION
+function sendMessage(){
+ const input=document.getElementById('userMsg');
+ const originalText=input.value.trim();
+ if(!originalText) return;
+ let v=originalText.toLowerCase();
+ addMsg(originalText,'user');
+ input.value="";
+ setTimeout(()=>{
+  const blocked=["sex","nude","porn","fuck"];
+  if(blocked.some(b=>v.includes(b))){
+    addMsg("I can only assist with civic-related issues and educational queries. Please ask a relevant question.","ai"); return;
+  }
+  const hints=["kchra","kachra","kacra","kuda","road","rasta","rsta","pothole","khadda","gadda","light","lait","batti","water","pani","watar","nali","drain","gutter","garbage","complaint","safai"];
+  let isComplaint=hints.some(k=>v.includes(k));
+  if(isComplaint){
+    const corrections={"kchra":"garbage","kachra":"garbage","kacra":"garbage","rsta":"road","rasta":"road","khada":"pothole","gadda":"pothole","lait":"light","lite":"light","batti":"light","pani":"water","watar":"water","nali":"drainage","gatar":"drainage"};
+    let bad="",good="",hasMistake=false,cat="Garbage";
+    for(let w in corrections){if(v.includes(w)){bad=w;good=corrections[w];if(["kchra","kacra","rsta","lait","watar","gatar"].includes(w))hasMistake=true;break;}}
+    if(v.includes("road")||v.includes("pothole")||v.includes("rasta")||v.includes("khadda"))cat="Pothole";
+    else if(v.includes("light")||v.includes("batti"))cat="Street Light";
+    else if(v.includes("water")||v.includes("pani"))cat="Water Supply";
+    else if(v.includes("drain")||v.includes("nali"))cat="Drainage";
+    document.getElementById('category').value=cat;
+    document.getElementById('description').value=originalText;
+    let reply=hasMistake?`I noticed a small spelling error in your message.\n\nYou wrote "${bad}", you probably meant "${good}".\n\nI have understood your issue as a ${cat} problem. I have automatically filled the complaint form below. Please add your location and click on Submit to proceed.`:`Thank you for sharing the details. I have identified your issue as a ${cat} related complaint.\n\nThe complaint form has been filled automatically based on your message. Kindly verify your location and click on the Submit button to file your complaint. It will be visible on the dashboard immediately.`;
+    addMsg(reply,"ai");return;
+  }
+  let ans="";
+  if(v.includes("hello")||v=="hi"){ans="Hello! I am your AI Civic Assistant.\n\nI am here to help you in two ways:\n1. I can answer your questions in clear and correct English.\n2. I can help you file a civic complaint automatically.\n\nHow may I assist you today?";}
+  else if(v.includes("what is garbage")){ans="Garbage refers to waste materials that are discarded from households and industries. It includes food waste, plastic, and paper. Proper garbage management is essential to maintain cleanliness and public health.";}
+  else if(v.includes("what is pothole")){ans="A pothole is a hole or depression on the road surface, usually caused by water and traffic. It can be dangerous and should be reported for quick repair.";}
+  else if(v.includes("how to file")){ans="Filing a complaint is very simple:\n1. Describe your problem in the chat.\n2. I will detect the category automatically.\n3. Enter your location or use GPS.\n4. Click Submit. Your complaint will go live on the dashboard.";}
+  else if(v.startsWith("what")||v.startsWith("why")||v.startsWith("how")||v.startsWith("define")||v.startsWith("explain")||v.includes("?")){
+    ans=`That is an excellent question.\n\nRegarding "${originalText}", here is a clear explanation:\nThis is related to civic responsibility and public services. Reporting issues like garbage, roads, and water helps the municipality take quick action and keeps the city clean and safe.\n\nIf you have a specific issue, please describe it and I will convert it into a formal complaint for you.`;}
+  else{ans=`I have received your message: "${originalText}".\n\nI can provide accurate information in proper English. Please ask your question clearly, for example, "What is drainage?"\n\nIf you want to file a complaint, please use words like garbage, road, water, light, or drainage.`;}
+  addMsg(ans,"ai");
+ },500);
+}
+
 async function submitComplaint(){
  const cat=document.getElementById('category').value;
  const desc=document.getElementById('description').value;
  const loc=document.getElementById('location').value;
- if(!desc){alert("Type message and click Send first");return;}
- 
- // button loading
+ if(!desc){alert("Please type your problem in chat first");return;}
  event.target.innerText="Submitting...";
- 
- await fetch(API, {
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body: JSON.stringify({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()})
- });
-
- // show dashboard
+ await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()})});
  document.getElementById('complaintView').style.display='none';
  document.getElementById('dashboardView').style.display='block';
  loadDashboard();
 }
-
 async function loadDashboard(){
- let res = await fetch(API);
- let arr = await res.json();
- let h="";
- if(arr.length==0) h="<p>No complaints yet</p>";
- else arr.reverse().forEach(x=>{
-   h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`
- });
+ let res=await fetch(API);let arr=await res.json();let h="";
+ if(arr.length==0)h="<p>No complaints yet</p>";
+ else arr.reverse().forEach(x=>{h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`});
  document.getElementById('list').innerHTML=h;
 }
 </script>
- <footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
-  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
-  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
-  <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
-  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
- </footer>
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb;">
+<b style="color:white;">Developed by:</b> Shravani Mahamulkar <br><b style="color:white;">Program:</b> Inplant Training 2026 <br><span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br><b style="color:white;">College:</b> Arvind Gavali College of Engineering
+</footer>
 </body>
 </html>
