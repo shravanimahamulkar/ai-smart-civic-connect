@@ -4,18 +4,43 @@
 <style>body{background:#eef3ff;font-family:Segoe UI}.card{border:none;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06)}</style>
 </head><body>
 <nav class="navbar bg-white shadow-sm px-4"><b style="color:#2563eb">AI Smart Civic Connect</b><a href="complaint.html" class="btn btn-primary btn-sm">+ New Complaint</a></nav>
-<div class="container mt-4"><h4 class="fw-bold">Citizen Dashboard</h4><div id="list"></div></div>
+<div class="container mt-4">
+<h4 class="fw-bold">Citizen Dashboard - All Complaints</h4>
+<span class="badge bg-primary mb-3" id="count"></span>
+<div id="list"></div>
+</div>
+
 <script>
-let data=JSON.parse(localStorage.getItem('complaints')||"[]");let h="";
-if(data.length==0)h=`<div class="card p-4 text-center text-muted">No complaints yet</div>`;
-else data.reverse().forEach(c=>{h+=`<div class="card p-3 mb-3"><b>${c.cat}</b> <span class="badge bg-warning text-dark float-end">${c.status}</span><p class="mt-2 mb-1">${c.desc}</p><small>📍 ${c.loc||'No location'} | 🕒 ${c.date}</small></div>`});
+// Saglya complaints ghe
+let data = JSON.parse(localStorage.getItem('complaints')||"[]");
+let h = "";
+
+document.getElementById('count').innerText = "Total Complaints: " + data.length;
+
+if(data.length==0){
+ h=`<div class="card p-4 text-center text-muted">No complaints yet</div>`;
+} else {
+ // saglya disavyat mhanun reverse
+ data.slice().reverse().forEach((c,i)=>{
+   h+=`<div class="card p-3 mb-3">
+   <div class="d-flex justify-content-between">
+     <b>${c.cat || 'General'}</b> 
+     <span class="badge bg-warning text-dark">${c.status || 'Pending'}</span>
+   </div>
+   <p class="mt-2 mb-1">${c.desc}</p>
+   <small>📍 ${c.loc||'No location'} | 🕒 ${c.date||''}</small><br>
+   <small class="text-primary fw-bold">👤 Complain By: ${c.name || c.username || 'Shravani Mahamulkar'} | 📧 ${c.email || ''}</small>
+   </div>`;
+ });
+}
 document.getElementById('list').innerHTML=h;
 </script>
-<<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
+
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb;">
   <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
   <b style="color:white;">Program:</b> Inplant Training 2026 <br>
   <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
   <b style="color:white;">College:</b> Arvind Gavali College of Engineering
 </footer>
 </body>
-</html>
+</html
