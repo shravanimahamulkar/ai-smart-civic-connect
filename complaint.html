@@ -32,30 +32,52 @@ body{background:#eef3ff;font-family:Segoe UI}.card-box{background:#fff;border-ra
 </div>
 </div>
 
-<!-- DASHBOARD SECTION - HIDDEN, WILL SHOW AFTER SUBMIT -->
+<!-- DASHBOARD SECTION -->
 <div id="dashboardView" class="container mt-4">
-<div class="text-center mb-4"><div style="font-size:60px">✅</div><h2 style="color:#16a34a;font-weight:800">OK Done! Submitted</h2><p>Your complaint is now in Dashboard</p></div>
-<h5 class="fw-bold">Citizen Dashboard</h5>
-<div id="list"></div>
+<div class="text-center mb-4"><div style="font-size:60px">✅</div><h2 style="color:#16a34a;font-weight:800">OK Done! Submitted</h2><p>Your complaint is now Live for all users</p></div>
+<h5 class="fw-bold">Citizen Dashboard (Live)</h5>
+<div id="list">Loading...</div>
 <button onclick="location.reload()" class="btn btn-primary mt-3 w-100">+ File New Complaint</button>
 </div>
 
 <script>
+const API = "https://crudcrud.com/api/b4f83a0e2b034d7bb39be6897cf089c3/complaints";
+
 function addMsg(t,w){const a=document.getElementById('chatWindow');const d=document.createElement('div');d.className='msg '+w;d.innerText=t;a.appendChild(d);a.scrollTop=a.scrollHeight;}
-function sendMessage(){const i=document.getElementById('userMsg');const v=i.value.trim();if(!v)return;addMsg(v,'user');i.value="";setTimeout(()=>{let c="Garbage";let l=v.toLowerCase();if(l.includes("road")||l.includes("pothole"))c="Pothole";else if(l.includes("light"))c="Street Light";else if(l.includes("water"))c="Water Supply";document.getElementById('category').value=c;document.getElementById('description').value=v;addMsg("Hello! Detected: "+c+". Form filled. Now click Submit.","ai")},400);}
+function sendMessage(){const i=document.getElementById('userMsg');const v=i.value.trim();if(!v)return;addMsg(v,'user');i.value="";setTimeout(()=>{let c="Garbage";let l=v.toLowerCase();if(l.includes("road")||l.includes("pothole"))c="Pothole";else if(l.includes("light"))c="Street Light";else if(l.includes("water"))c="Water Supply";document.getElementById('category').value=c;document.getElementById('description').value=v;addMsg("Detected: "+c+". Form filled. Now click Submit.","ai")},400);}
 function getGPS(){navigator.geolocation.getCurrentPosition(p=>document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4))}
 document.getElementById('userMsg').addEventListener('keypress',e=>{if(e.key==='Enter')sendMessage()});
 
-function submitComplaint(){
- const cat=document.getElementById('category').value,desc=document.getElementById('description').value,loc=document.getElementById('location').value;
+// REAL BACKEND WALA FUNCTION
+async function submitComplaint(){
+ const cat=document.getElementById('category').value;
+ const desc=document.getElementById('description').value;
+ const loc=document.getElementById('location').value;
  if(!desc){alert("Type message and click Send first");return;}
- let arr=JSON.parse(localStorage.getItem('complaints')||"[]");
- arr.push({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()});
- localStorage.setItem('complaints',JSON.stringify(arr));
- // SHOW DASHBOARD DIRECTLY - NO FILE OPEN
+ 
+ // button loading
+ event.target.innerText="Submitting...";
+ 
+ await fetch(API, {
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body: JSON.stringify({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()})
+ });
+
+ // show dashboard
  document.getElementById('complaintView').style.display='none';
  document.getElementById('dashboardView').style.display='block';
- let h="";arr.reverse().forEach(x=>{h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`});
+ loadDashboard();
+}
+
+async function loadDashboard(){
+ let res = await fetch(API);
+ let arr = await res.json();
+ let h="";
+ if(arr.length==0) h="<p>No complaints yet</p>";
+ else arr.reverse().forEach(x=>{
+   h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`
+ });
  document.getElementById('list').innerHTML=h;
 }
 </script>
