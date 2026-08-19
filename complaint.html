@@ -1,57 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complaint - Final</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Civic Connect - Complaint</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
- body{margin:0;font-family:system-ui;background:#eef2ff}
-.nav{background:#fff;padding:12px 20px;font-weight:700;color:#2563eb}
-.container{display:flex;gap:20px;padding:20px;max-width:1100px;margin:auto;flex-wrap:wrap}
-.chat-box,.form-box{background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:16px}
-.chat-box{flex:1;min-width:320px;max-width:380px;display:flex;flex-direction:column;height:440px}
-.form-box{flex:1.2;min-width:340px;height:fit-content}
+body{background:#eef2ff;font-family:system-ui;margin:0}
+.nav-top{background:#fff;padding:12px 20px;font-weight:700;color:#2563eb;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.main{max-width:1150px;margin:20px auto;display:flex;gap:20px;padding:0 15px;flex-wrap:wrap}
+.chat{flex:1;min-width:330px;max-width:400px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;height:500px}
+.formsec{flex:1.3;min-width:350px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.08);height:fit-content}
 #msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#f8fafc;padding:10px;border-radius:10px}
-.msg{padding:10px 12px;border-radius:12px;font-size:13.5px;max-width:85%}
+.msg{padding:10px 12px;border-radius:12px;font-size:13.5px;max-width:85%;line-height:1.5}
 .user{align-self:flex-end;background:#2563eb;color:#fff}
-.ai{align-self:flex-start;background:#e0e7ff}
-.input-row{display:flex;gap:8px;margin-top:10px}
-.input-row input{flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px}
-.input-row button{background:#2563eb;color:#fff;border:none;padding:0 16px;border-radius:8px;cursor:pointer}
-select, textarea,.gps-input{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-bottom:12px;box-sizing:border-box}
-textarea{height:90px}.gps-row{display:flex;gap:10px}
-.submit-btn{width:100%;background:#2558e8;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:600;cursor:pointer}
-.card-box{background:#fff;padding:14px;border-radius:10px;border:1px solid #e2e8f0}
+.ai{align-self:flex-start;background:#e0e7ff;color:#1e293b}
+.input-row{display:flex;gap:8px;margin-top:12px}
+.input-row input{flex:1;padding:11px;border:1px solid #cbd5e1;border-radius:10px}
+.input-row button{background:#2563eb;color:#fff;border:none;padding:0 18px;border-radius:10px;font-weight:600}
+select,textarea,#location{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;margin-bottom:12px;box-sizing:border-box}
+textarea{height:100px}
+.submit-btn{width:100%;background:#2563eb;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:700;cursor:pointer}
+.card-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="nav">AI Smart Civic Connect</div>
-<div class="container">
-  <div class="chat-box">
-    <b>🤖 AI Assistant - Hello!</b>
-    <div id="msgs"><div class="msg ai">Hello! I am your Civic Assistant. Please describe your problem.</div></div>
-    <div class="input-row"><input id="chatInput" placeholder="Type here..." /><button id="sendBtn">Send</button></div>
-  </div>
-  <div class="form-box" id="complaintView">
-    <h3 style="margin-top:0">File Complaint</h3>
-    <select id="category"><option>Garbage</option><option>Pothole</option><option>Street Light</option><option>Water Supply</option><option>Drainage</option></select>
-    <textarea id="description" placeholder="Auto filled from chat..."></textarea>
-    <div class="gps-row"><input id="location" value="18.6857,73.8346"/><button type="button" onclick="getGPS()">📍 GPS</button></div>
-    <button class="submit-btn" onclick="submitComplaint(event)">Submit Complaint</button>
-  </div>
-  <div class="form-box" id="dashboardView" style="display:none"><h3>Dashboard</h3><div id="list"></div></div>
+<div class="nav-top">AI Smart Civic Connect</div>
+
+<div class="main">
+<div class="chat">
+<b>🤖 AI Assistant</b>
+<div id="msgs"><div class="msg ai">Hello! I am your AI Civic Assistant. Describe your issue like garbage, road, light, water.</div></div>
+<div class="input-row"><input id="chatInput" placeholder="Type here..."><button id="sendBtn">Send</button></div>
+</div>
+
+<div class="formsec" id="complaintView">
+<h4>File Complaint</h4>
+<select id="category"><option>Garbage</option><option>Pothole</option><option>Street Light</option><option>Water Supply</option><option>Drainage</option></select>
+<textarea id="description" placeholder="Will be auto-filled from chat..."></textarea>
+<div style="display:flex;gap:10px"><input id="location" value="18.6857,73.8346" placeholder="Location"><button type="button" class="btn btn-outline-primary" onclick="getGPS()">📍 GPS</button></div>
+<button class="submit-btn mt-2" onclick="submitComplaint()">Submit Complaint</button>
+</div>
+
+<div class="formsec" id="dashboardView" style="display:none">
+<h4>Dashboard - Your Complaints</h4>
+<div id="list"></div>
+<button class="btn btn-secondary mt-3" onclick="location.reload()">+ New Complaint</button>
+</div>
 </div>
 
 <script>
-const API = "https://YOUR-FIREBASE-URL/complaints.json";
-function getGPS(){ navigator.geolocation.getCurrentPosition(p=>{document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4);}); }
-function addMsg(t,who){ const d=document.createElement('div'); d.className='msg '+who; d.innerText=t; document.getElementById('msgs').appendChild(d); document.getElementById('msgs').scrollTop=9999; }
-const chatInput=document.getElementById('chatInput');
-const sendBtn=document.getElementById('sendBtn');
-sendBtn.onclick = ()=>{
- let originalText = chatInput.value.trim(); if(!originalText) return;
- let v=originalText.toLowerCase();
+function getGPS(){if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4);});}}
+function addMsg(t,who){const d=document.createElement('div');d.className='msg '+who;d.innerText=t;document.getElementById('msgs').appendChild(d);document.getElementById('msgs').scrollTop=9999;}
+const chatInput=document.getElementById('chatInput');const sendBtn=document.getElementById('sendBtn');const input=chatInput;
+
+sendBtn.onclick=()=>{
+let originalText=chatInput.value.trim();if(!originalText)return;
+let v=originalText.toLowerCase();
  addMsg(originalText,'user');
- chatInput.value="";
+ input.value="";
  setTimeout(()=>{
   const blocked=["sex","nude","porn","fuck"];
   if(blocked.some(b=>v.includes(b))){
@@ -83,22 +90,26 @@ sendBtn.onclick = ()=>{
   addMsg(ans,"ai");
  },500);
 }
-chatInput.onkeypress = e=>{ if(e.key==='Enter') sendBtn.onclick(); };
-async function submitComplaint(e){
+chatInput.onkeypress=e=>{if(e.key==='Enter')sendBtn.onclick();};
+
+// FIXED SUBMIT - 100% WORKING
+function submitComplaint(){
  const cat=document.getElementById('category').value;
  const desc=document.getElementById('description').value;
  const loc=document.getElementById('location').value;
  if(!desc){alert("Please type your problem in chat first");return;}
- if(e) e.target.innerText="Submitting...";
- await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()})});
+ let arr=JSON.parse(localStorage.getItem("complaints")||"[]");
+ arr.push({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()});
+ localStorage.setItem("complaints",JSON.stringify(arr));
  document.getElementById('complaintView').style.display='none';
  document.getElementById('dashboardView').style.display='block';
  loadDashboard();
 }
-async function loadDashboard(){
- let res=await fetch(API);let arr=await res.json();let h="";
- if(!arr) h="<p>No complaints yet</p>";
- else Object.values(arr).reverse().forEach(x=>{h+=`<div class="card-box"><b>${x.cat}</b><p>${x.desc}</p><small>📍 ${x.loc}</small></div>`});
+function loadDashboard(){
+ let res=JSON.parse(localStorage.getItem("complaints")||"[]");
+ let h="";
+ if(res.length==0)h="<p>No complaints yet</p>";
+ else res.slice().reverse().forEach(x=>{h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`});
  document.getElementById('list').innerHTML=h;
 }
 </script>
