@@ -1,121 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Civic Connect - Complaint</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body{background:#eef2ff;font-family:system-ui;margin:0}
-.nav-top{background:#fff;padding:12px 20px;font-weight:700;color:#2563eb;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.main{max-width:1150px;margin:20px auto;display:flex;gap:20px;padding:0 15px;flex-wrap:wrap}
-.chat{flex:1;min-width:330px;max-width:400px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;height:500px}
-.formsec{flex:1.3;min-width:350px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.08);height:fit-content}
-#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#f8fafc;padding:10px;border-radius:10px}
-.msg{padding:10px 12px;border-radius:12px;font-size:13.5px;max-width:85%;line-height:1.5}
-.user{align-self:flex-end;background:#2563eb;color:#fff}
-.ai{align-self:flex-start;background:#e0e7ff;color:#1e293b}
-.input-row{display:flex;gap:8px;margin-top:12px}
-.input-row input{flex:1;padding:11px;border:1px solid #cbd5e1;border-radius:10px}
-.input-row button{background:#2563eb;color:#fff;border:none;padding:0 18px;border-radius:10px;font-weight:600}
-select,textarea,#location{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;margin-bottom:12px;box-sizing:border-box}
-textarea{height:100px}
-.submit-btn{width:100%;background:#2563eb;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:700;cursor:pointer}
-.card-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px}
-</style>
-</head>
-<body>
-<div class="nav-top">AI Smart Civic Connect</div>
-
-<div class="main">
-<div class="chat">
-<b>🤖 AI Assistant</b>
-<div id="msgs"><div class="msg ai">Hello! I am your AI Civic Assistant. Describe your issue like garbage, road, light, water.</div></div>
-<div class="input-row"><input id="chatInput" placeholder="Type here..."><button id="sendBtn">Send</button></div>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Civic Connect</title>
+<style>body{margin:0;font-family:system-ui;background:#eef2ff}.top{background:#fff;padding:12px 20px;font-weight:700;color:#2563eb}.wrap{max-width:1100px;margin:auto;display:flex;gap:20px;padding:15px;flex-wrap:wrap}.box{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}.chat{flex:1;min-width:320px;max-width:380px;display:flex;flex-direction:column;height:500px}.form{flex:1.2;min-width:340px}#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#f8fafc;padding:10px;border-radius:10px}.msg{padding:10px 12px;border-radius:12px;font-size:13.5px;max-width:85%}.user{align-self:flex-end;background:#2563eb;color:#fff}.ai{align-self:flex-start;background:#e0e7ff}.row{display:flex;gap:8px;margin-top:10px}.row input{flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px}.row button{background:#2563eb;color:#fff;border:none;padding:0 16px;border-radius:8px}select,textarea,input{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-bottom:12px;box-sizing:border-box}textarea{height:90px}.btn{width:100%;background:#2563eb;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:700;cursor:pointer}</style></head><body>
+<div class="top">AI Smart Civic Connect</div>
+<div class="wrap">
+<div class="box chat"><b>🤖 AI Assistant</b><div id="msgs"><div class="msg ai">Hello! Type Water, Road, Light etc.</div></div><div class="row"><input id="chatInput" placeholder="Type here..."><button id="sendBtn">Send</button></div></div>
+<div class="box form" id="complaintView"><h3>File Complaint</h3><select id="category"><option>Garbage</option><option>Pothole</option><option>Street Light</option><option selected>Water Supply</option><option>Drainage</option></select><textarea id="description"></textarea><div style="display:flex;gap:8px"><input id="loc" value="18.6857,73.8346"><button onclick="navigator.geolocation.getCurrentPosition(p=>loc.value=p.coords.latitude.toFixed(4)+','+p.coords.longitude.toFixed(4))">📍GPS</button></div><button class="btn" onclick="submitComplaint()">Submit Complaint</button></div>
+<div class="box form" id="dashboardView" style="display:none"><h3>Dashboard</h3><div id="list"></div><button class="btn" style="background:#64748b" onclick="location.reload()">+ New</button></div>
 </div>
-
-<div class="formsec" id="complaintView">
-<h4>File Complaint</h4>
-<select id="category"><option>Garbage</option><option>Pothole</option><option>Street Light</option><option>Water Supply</option><option>Drainage</option></select>
-<textarea id="description" placeholder="Will be auto-filled from chat..."></textarea>
-<div style="display:flex;gap:10px"><input id="location" value="18.6857,73.8346" placeholder="Location"><button type="button" class="btn btn-outline-primary" onclick="getGPS()">📍 GPS</button></div>
-<button class="submit-btn mt-2" onclick="submitComplaint()">Submit Complaint</button>
-</div>
-
-<div class="formsec" id="dashboardView" style="display:none">
-<h4>Dashboard - Your Complaints</h4>
-<div id="list"></div>
-<button class="btn btn-secondary mt-3" onclick="location.reload()">+ New Complaint</button>
-</div>
-</div>
-
 <script>
-function getGPS(){if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{document.getElementById('location').value=p.coords.latitude.toFixed(4)+","+p.coords.longitude.toFixed(4);});}}
-function addMsg(t,who){const d=document.createElement('div');d.className='msg '+who;d.innerText=t;document.getElementById('msgs').appendChild(d);document.getElementById('msgs').scrollTop=9999;}
-const chatInput=document.getElementById('chatInput');const sendBtn=document.getElementById('sendBtn');const input=chatInput;
-
-sendBtn.onclick=()=>{
-let originalText=chatInput.value.trim();if(!originalText)return;
-let v=originalText.toLowerCase();
- addMsg(originalText,'user');
- input.value="";
- setTimeout(()=>{
-  const blocked=["sex","nude","porn","fuck"];
-  if(blocked.some(b=>v.includes(b))){
-    addMsg("I can only assist with civic-related issues and educational queries. Please ask a relevant question.","ai"); return;
-  }
-  const hints=["kchra","kachra","kacra","kuda","road","rasta","rsta","pothole","khadda","gadda","light","lait","batti","water","pani","watar","nali","drain","gutter","garbage","complaint","safai"];
-  let isComplaint=hints.some(k=>v.includes(k));
-  if(isComplaint){
-    const corrections={"kchra":"garbage","kachra":"garbage","kacra":"garbage","rsta":"road","rasta":"road","khada":"pothole","gadda":"pothole","lait":"light","lite":"light","batti":"light","pani":"water","watar":"water","nali":"drainage","gatar":"drainage"};
-    let bad="",good="",hasMistake=false,cat="Garbage";
-    for(let w in corrections){if(v.includes(w)){bad=w;good=corrections[w];if(["kchra","kacra","rsta","lait","watar","gatar"].includes(w))hasMistake=true;break;}}
-    if(v.includes("road")||v.includes("pothole")||v.includes("rasta")||v.includes("khadda"))cat="Pothole";
-    else if(v.includes("light")||v.includes("batti"))cat="Street Light";
-    else if(v.includes("water")||v.includes("pani"))cat="Water Supply";
-    else if(v.includes("drain")||v.includes("nali"))cat="Drainage";
-    document.getElementById('category').value=cat;
-    document.getElementById('description').value=originalText;
-    let reply=hasMistake?`I noticed a small spelling error in your message.\n\nYou wrote "${bad}", you probably meant "${good}".\n\nI have understood your issue as a ${cat} problem. I have automatically filled the complaint form below. Please add your location and click on Submit to proceed.`:`Thank you for sharing the details. I have identified your issue as a ${cat} related complaint.\n\nThe complaint form has been filled automatically based on your message. Kindly verify your location and click on the Submit button to file your complaint. It will be visible on the dashboard immediately.`;
-    addMsg(reply,"ai");return;
-  }
-  let ans="";
-  if(v.includes("hello")||v=="hi"){ans="Hello! I am your AI Civic Assistant.\n\nI am here to help you in two ways:\n1. I can answer your questions in clear and correct English.\n2. I can help you file a civic complaint automatically.\n\nHow may I assist you today?";}
-  else if(v.includes("what is garbage")){ans="Garbage refers to waste materials that are discarded from households and industries. It includes food waste, plastic, and paper. Proper garbage management is essential to maintain cleanliness and public health.";}
-  else if(v.includes("what is pothole")){ans="A pothole is a hole or depression on the road surface, usually caused by water and traffic. It can be dangerous and should be reported for quick repair.";}
-  else if(v.includes("how to file")){ans="Filing a complaint is very simple:\n1. Describe your problem in the chat.\n2. I will detect the category automatically.\n3. Enter your location or use GPS.\n4. Click Submit. Your complaint will go live on the dashboard.";}
-  else if(v.startsWith("what")||v.startsWith("why")||v.startsWith("how")||v.startsWith("define")||v.startsWith("explain")||v.includes("?")){
-    ans=`That is an excellent question.\n\nRegarding "${originalText}", here is a clear explanation:\nThis is related to civic responsibility and public services. Reporting issues like garbage, roads, and water helps the municipality take quick action and keeps the city clean and safe.\n\nIf you have a specific issue, please describe it and I will convert it into a formal complaint for you.`;}
-  else{ans=`I have received your message: "${originalText}".\n\nI can provide accurate information in proper English. Please ask your question clearly, for example, "What is drainage?"\n\nIf you want to file a complaint, please use words like garbage, road, water, light, or drainage.`;}
-  addMsg(ans,"ai");
- },500);
-}
-chatInput.onkeypress=e=>{if(e.key==='Enter')sendBtn.onclick();};
-
-// FIXED SUBMIT - 100% WORKING
-function submitComplaint(){
- const cat=document.getElementById('category').value;
- const desc=document.getElementById('description').value;
- const loc=document.getElementById('location').value;
- if(!desc){alert("Please type your problem in chat first");return;}
- let arr=JSON.parse(localStorage.getItem("complaints")||"[]");
- arr.push({cat,desc,loc,status:"Pending",date:new Date().toLocaleString()});
- localStorage.setItem("complaints",JSON.stringify(arr));
- document.getElementById('complaintView').style.display='none';
- document.getElementById('dashboardView').style.display='block';
- loadDashboard();
-}
-function loadDashboard(){
- let res=JSON.parse(localStorage.getItem("complaints")||"[]");
- let h="";
- if(res.length==0)h="<p>No complaints yet</p>";
- else res.slice().reverse().forEach(x=>{h+=`<div class="card-box mb-3"><b>${x.cat}</b> <span class="badge bg-warning text-dark float-end">${x.status}</span><p class="mt-2 mb-1">${x.desc}</p><small>📍 ${x.loc||'No loc'} | ${x.date}</small></div>`});
- document.getElementById('list').innerHTML=h;
-}
+function addMsg(t,w){let d=document.createElement('div');d.className='msg '+w;d.innerText=t;msgs.appendChild(d);msgs.scrollTop=9999}
+sendBtn.onclick=()=>{let t=chatInput.value.trim();if(!t)return;let v=t.toLowerCase();addMsg(t,'user');chatInput.value='';setTimeout(()=>{let c='Water Supply';if(v.includes('road')||v.includes('pothole'))c='Pothole';else if(v.includes('light'))c='Street Light';else if(v.includes('water')||v.includes('pani'))c='Water Supply';else if(v.includes('drain'))c='Drainage';else c='Garbage';category.value=c;description.value=t;addMsg('Your '+c+' complaint is ready. Click Submit.','ai')},300)}
+function submitComplaint(){let d=description.value;if(!d){alert('आधी Water टाईप करा');return}let a=JSON.parse(localStorage.getItem('complaints')||'[]');a.push({cat:category.value,desc:d,loc:loc.value,status:'Pending',date:new Date().toLocaleString()});localStorage.setItem('complaints',JSON.stringify(a));complaintView.style.display='none';dashboardView.style.display='block';let h='';a.slice().reverse().forEach(x=>{h+=`<div style="border:1px solid #e2e8f0;padding:12px;border-radius:10px;margin-bottom:10px"><b>${x.cat}</b> <span style="float:right;background:#fef08a;padding:2px 6px;border-radius:6px;font-size:12px">${x.status}</span><p>${x.desc}</p><small>📍 ${x.loc} | ${x.date}</small></div>`});list.innerHTML=h}
 </script>
-
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb;">
-<b style="color:white;">Developed by:</b> Shravani Mahamulkar <br><b style="color:white;">Program:</b> Inplant Training 2026 <br><span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br><b style="color:white;">College:</b> Arvind Gavali College of Engineering
-</footer>
-</body>
-</html>
+<footer style="background:#0f172a;color:#cbd5e1;text-align:center;padding:22px 15px;font-size:14px;line-height:1.9;margin-top:50px;border-top:3px solid #2563eb;"><b style="color:white;">Developed by:</b> Shravani Mahamulkar<br><b style="color:white;">Program:</b> Inplant Training 2026<br><span style="color:#fbbf24;font-weight:600;">Indradeep Information Technology Pvt Ltd</span><br><b style="color:white;">College:</b> Arvind Gavali College of Engineering</footer>
+</body></html>
