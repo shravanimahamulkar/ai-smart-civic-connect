@@ -1,55 +1,69 @@
-</div>
-</div>
-</section>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Smart Civic Connect</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-<!-- LOCK - Show this if user is NOT logged in -->
-<div id="loginMessage" style="text-align:center; padding:60px 20px; background:#f8fafc;">
-  <h3 style="color:#0A4DA1;">🔒 Please Login First</h3>
-  <p class="text-muted">You need to login to see the Project Process Steps</p>
-  <a href="login.html" style="background:#0A4DA1; color:white; padding:10px 25px; border-radius:25px; text-decoration:none; display:inline-block; margin-top:10px;">Login Now</a>
+<!-- Login Nahi Kela Tar Hech Disel -->
+<div id="loginPage" style="min-height:100vh; display:flex; justify-content:center; align-items:center; background:#f0f5ff;">
+  <div class="card p-4" style="width:95%; max-width:380px; border-radius:20px;">
+    <h4 class="text-center fw-bold" style="color:#0A4DA1">Login Required</h4>
+    <p class="text-center text-muted small">Real Email / Password ne login kara</p>
+    <input type="email" id="email" class="form-control mt-3" placeholder="Real Email">
+    <input type="password" id="password" class="form-control mt-2" placeholder="Password">
+    <button id="loginBtn" class="btn btn-primary w-100 mt-3 rounded-pill">Login</button>
+    <button id="signupBtn" class="btn btn-outline-primary w-100 mt-2 rounded-pill">New Account Bana</button>
+    <p id="msg" class="small text-center mt-2 text-danger"></p>
+  </div>
 </div>
 
-<!-- Hide this section if user is NOT logged in -->
-<div id="processSteps" style="display:none;">
+<!-- Login Zalyavar He Disel - Tujhe Adhiche Steps -->
+<div id="mainPage" style="display:none;">
+  <section style="background: linear-gradient(135deg,#0A4DA1,#2563eb); color:white; padding:60px 20px;" class="text-center">
+    <h1 class="fw-bold">AI Smart Civic Connect</h1>
+    <p>Smart Complaint Management System</p>
+  </section>
 
-<section class="container py-5 text-center">
-<h3 class="fw-bold" style="color:#0A4DA1">Why AI Smart Civic Connect?</h3>
-<p class="text-muted">11 Pages | Flask (app.py) | Firebase | Gemini + Chatbase AI</p>
-<div class="row g-3 mt-2">
-<div class="col-md-3 col-6"><div class="card p-4 h-100">🤖<br><b>Gemini AI</b><br><small class="text-muted">Auto category detection</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">💬<br><b>Chatbase AI</b><br><small class="text-muted">24/7 Chatbot</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">📍<br><b>Live Location</b><br><small class="text-muted">GPS + Storage</small></div></div>
-<div class="col-md-3 col-6"><div class="card p-4 h-100">📊<br><b>Analytics</b><br><small class="text-muted">3 Dashboards</small></div></div>
+  <section class="container py-5">
+    <h3 class="fw-bold text-center" style="color:#0A4DA1">Project Process Steps</h3>
+    <div class="row g-3 mt-3 text-center">
+      <div class="col-md-3"><div class="card p-3"><b>1. Write Complaint</b><br><small>User Title, Desc, Location lihito</small></div></div>
+      <div class="col-md-3"><div class="card p-3"><b>2. Firebase Message</b><br><small>Data Firebase madhe Email+Date sobat save hoto</small></div></div>
+      <div class="col-md-3"><div class="card p-3"><b>3. Feedback</b><br><small>Success Message yeto</small></div></div>
+      <div class="col-md-3"><div class="card p-3"><b>4. Dashboard Pending</b><br><small>Complaint Dashboard la Pending diste</small></div></div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="complaint.html" class="btn btn-primary rounded-pill">Create Complaint</a>
+      <a href="dashboard.html" class="btn btn-outline-primary rounded-pill ms-2">Dashboard</a>
+    </div>
+  </section>
+
+  <footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px;">Developed by Shravani Mahamulkar</footer>
 </div>
-</section>
-
-</div> <!-- End of processSteps -->
 
 <script type="module">
 import { auth } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
-  const steps = document.getElementById('processSteps');
-  const loginMsg = document.getElementById('loginMessage');
-  if (user) {
-    // User is logged in - Show process
-    steps.style.display = "block";
-    loginMsg.style.display = "none";
-  } else {
-    // User is NOT logged in - Hide process
-    steps.style.display = "none";
-    loginMsg.style.display = "block";
-  }
+const loginPage = document.getElementById('loginPage');
+const mainPage = document.getElementById('mainPage');
+
+onAuthStateChanged(auth, (user)=>{
+  if(user){ loginPage.style.display="none"; mainPage.style.display="block"; }
+  else{ loginPage.style.display="flex"; mainPage.style.display="none"; }
 });
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
-  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
-  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
-  <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
-  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
-</footer>
+document.getElementById('loginBtn').onclick = async () => {
+  try{ await signInWithEmailAndPassword(auth, email.value, password.value); }
+  catch(e){ msg.innerText = e.message; }
+};
+document.getElementById('signupBtn').onclick = async () => {
+  try{ await createUserWithEmailAndPassword(auth, email.value, password.value); msg.innerText="Account Banla, Ata Login Kara"; msg.style.color="green"; }
+  catch(e){ msg.innerText = e.message; }
+};
+</script>
 </body>
 </html>
