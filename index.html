@@ -1,13 +1,81 @@
-<div class="row mt-4 g-2 justify-content-center">
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">✅ Email Verification</span></div>
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">📍 Live GPS</span></div>
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">🖼️ Image Upload</span></div>
-<div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">💬 AI Chatbot</span></div>
-<div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">📄 11 Pages Live</span></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Smart Civic Connect</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{font-family:'Poppins',sans-serif; background:#f8fafc;}
+.hero{background: linear-gradient(135deg,#0A4DA1,#0ea5e9); color:white; padding:60px 20px;}
+.step-box{background:white; border-radius:20px; padding:25px; box-shadow:0 8px 20px rgba(0,0,0,0.08); height:100%; text-align:center; border-top:4px solid #0A4DA1;}
+#loginPage{min-height:100vh; display:flex; justify-content:center; align-items:center; background:#eef4ff;}
+</style>
+</head>
+<body>
+
+<!-- STEP 1: LOGIN PAGE - ADHI HECH DISEL -->
+<div id="loginPage">
+  <div class="card p-4" style="width:95%; max-width:400px; border-radius:20px;">
+    <h4 class="text-center fw-bold">AI Civic Login</h4>
+    <input type="email" id="email" class="form-control mt-4" placeholder="Real Email - e.g. shravani41@gmail.com">
+    <input type="password" id="password" class="form-control mt-3" placeholder="Password">
+    <button id="loginBtn" class="btn btn-primary w-100 mt-3 rounded-pill">Login</button>
+    <button id="signupBtn" class="btn btn-outline-primary w-100 mt-2 rounded-pill">User Register</button>
+    <p id="msg" class="small text-center mt-2 text-danger"></p>
+    <p class="text-center small text-muted mt-2">Real Email / Password will work</p>
+  </div>
 </div>
-</div>
+
+<!-- STEP 2 to 7: LOGIN NANTAR SAGLE EK EK -->
+<div id="mainContent" style="display:none;">
+
+<!-- Main Heading -->
+<section class="hero text-center">
+  <h1 class="fw-bold">Smart City, Smart Complaint</h1>
+  <p>AI Based Citizen Complaint & Smart City Management System</p>
+  <div class="row mt-4 g-2 justify-content-center">
+    <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">✅ Email Verification</span></div>
+    <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">📍 Live GPS</span></div>
+    <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">🖼️ Image Upload</span></div>
+    <div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">💬 AI Chatbot</span></div>
+    <div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">📄 11 Pages Live</span></div>
+  </div>
 </section>
 
+<!-- Steps ek ek as per your screenshot -->
+<section class="container py-5">
+  <h3 class="fw-bold text-center" style="color:#0A4DA1">Project Process - Step by Step</h3>
+  <div class="row g-4 mt-4">
+
+    <div class="col-md-4">
+      <div class="step-box"><h5>Step 1: AI Civic Login</h5><p class="small text-muted">User Real Email ne Login karto - Firebase Auth</p><span class="badge bg-primary">login.html</span></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="step-box"><h5>Step 2: User Register</h5><p class="small text-muted">New user Email + Password ne Account banavto</p><span class="badge bg-success">register.html</span></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="step-box"><h5>Step 3: Dashboard</h5><p class="small text-muted">Complaint status - Pending, Resolved count disto - 0, 0</p><span class="badge bg-warning text-dark">dashboard.html</span></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="step-box"><h5>Step 4: File Complaint</h5><p class="small text-muted">User Title, Description, Live Location, Image Upload karto + Chatbase AI help</p><span class="badge bg-primary">complaint.html</span></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="step-box"><h5>Step 5: Firebase Save</h5><p class="small text-muted">Complaint Firebase madhe Email, Date, Feedback sobat save hoto</p><span class="badge bg-dark">Firebase</span></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="step-box" style="border-top-color:#22c55e;"><h5>Step 6: OK Done! Submitted</h5><p class="small text-muted">Your complaint is live in Dashboard - Pending to Resolved flow</p><span class="badge bg-success">Success</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Why Section - Tumcha adhi wala same -->
 <section class="container py-5 text-center">
 <h3 class="fw-bold" style="color:#0A4DA1">Why AI Smart Civic Connect?</h3>
 <p class="text-muted">11 Pages | Flask (app.py) | Firebase | Gemini + Chatbase AI</p>
@@ -18,12 +86,39 @@
 <div class="col-md-3 col-6"><div class="card p-4 h-100">📊<br><b>Analytics</b><br><small class="text-muted">3 Dashboards</small></div></div>
 </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
+
+<footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; border-top:3px solid #2563eb;">
   <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
   <b style="color:white;">Program:</b> Inplant Training 2026 <br>
   <span style="color:#fbbf24; font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
   <b style="color:white;">College:</b> Arvind Gavali College of Engineering
 </footer>
+
+</div>
+
+<script type="module">
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('loginPage').style.display = "none";
+    document.getElementById('mainContent').style.display = "block";
+  } else {
+    document.getElementById('loginPage').style.display = "flex";
+    document.getElementById('mainContent').style.display = "none";
+  }
+});
+
+document.getElementById('loginBtn').onclick = async () => {
+  try { await signInWithEmailAndPassword(auth, email.value, password.value); }
+  catch(e){ msg.innerText = e.message; }
+};
+document.getElementById('signupBtn').onclick = async () => {
+  try { await createUserWithEmailAndPassword(auth, email.value, password.value); msg.innerText="Account Created, Now Login"; msg.style.color="green"; }
+  catch(e){ msg.innerText = e.message; }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
