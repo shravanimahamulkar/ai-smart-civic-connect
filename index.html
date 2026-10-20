@@ -1,57 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Smart Civic - Login</title>
-  <style>
-    *{box-sizing:border-box}
-    body{font-family:'Segoe UI',Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#eef2f7;margin:0}
-    .box{background:white;padding:32px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.1);width:100%;max-width:360px}
-    h2{text-align:center;margin:0 0 20px 0;color:#1e293b}
-    input{width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;outline:none}
-    input:focus{border-color:#2563eb;box-shadow:0 0 0 2px #dbeafe}
-    button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:10px;cursor:pointer;margin-top:14px;font-weight:600;font-size:15px}
-    button:hover{background:#1d4ed8}
-    .info{font-size:13px;color:#64748b;text-align:center;margin-top:12px;background:#f8fafc;padding:8px;border-radius:8px}
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Smart Civic Connect - Shravani</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{background:#eef2ff;font-family:Poppins,sans-serif}
+.hero{background:linear-gradient(90deg,#1e3ac8,#0fb67a);color:white;text-align:center;padding:40px 15px;border-radius:0 0 30px 30px}
+.tab-card{background:white;border-radius:18px;padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.1);margin-bottom:20px}
+.nav-pills .nav-link.active{background:#2563eb;border-radius:50px}
+.nav-pills .nav-link{color:#334155;font-weight:600}
+.complaint-item{background:#f8fafc;border-radius:12px;padding:12px;margin-bottom:10px;border-left:4px solid #fbbf24}
+</style>
 </head>
 <body>
 
-<div class="box">
-  <h2>AI Civic Login</h2>
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Enter your Email" required />
-    <input type="password" id="password" placeholder="Enter Password (min 4)" required />
-    <button type="submit">Login</button>
-  </form>
-  <div class="info">Any Email / Password will work<br>Ex: shravani@gmail.com / 1234</div>
+<!-- HERO -->
+<div class="hero">
+<h2 class="fw-bold">Smart City,<br>Smart Complaint</h2>
+<p class="small">AI Based Citizen Complaint System<br>Powered by Gemini AI + Chatbase + Firebase</p>
+<p id="userShow" class="fw-bold mt-2"></p>
 </div>
 
-<script>
-  document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+<!-- TABLE MENU - Sagla Ekatra -->
+<div class="container py-3" style="max-width:700px">
+<ul class="nav nav-pills justify-content-center gap-2 mb-3" id="pills-tab" role="tablist">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#home">Home</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#complaint">Complaint</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#dashboard">Dashboard</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#contact">Contact</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#about">About</button></li>
+</ul>
 
-    if (!email.includes("@")) {
-      alert("Please enter a valid Email!");
-      return;
-    }
-    if (password.length < 4) {
-      alert("Password must be at least 4 characters!");
-      return;
-    }
+<div class="tab-content">
 
-    // Save Login Session
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userEmail", email);
-    
-    alert("Login Successful! Welcome " + email);
-    window.location.href = "dashboard.html"; 
+<!-- 1. HOME / LOGIN TABLE -->
+<div class="tab-pane fade show active" id="home">
+<div class="tab-card">
+<h4 class="fw-bold">AI Civic Login</h4>
+<input id="email" type="email" class="form-control mb-2" placeholder="admin@civic.com">
+<input id="password" type="password" class="form-control mb-2" placeholder="admin123">
+<button onclick="login()" class="btn btn-primary w-100 fw-bold">Login</button>
+<div class="bg-light p-2 rounded mt-2 small text-center text-muted">Demo: admin@civic.com / admin123<br>user@gmail.com / 1234<br>Any Email / 1234 also works</div>
+<button onclick="logout()" class="btn btn-danger w-100 mt-2 rounded-pill">Logout</button>
+</div>
+</div>
+
+<!-- 2. COMPLAINT TABLE - Chatbot + Submit -->
+<div class="tab-pane fade" id="complaint">
+<div class="tab-card">
+<h5 class="fw-bold">📄 File Complaint with AI + Chatbot</h5>
+<textarea id="complaintText" class="form-control mt-2" rows="3" placeholder="Road var khadda ahe..."></textarea>
+<button onclick="detectCategory()" class="btn btn-warning btn-sm mt-2">🤖 Gemini AI Detect</button>
+<p id="aiResult" class="fw-bold text-primary mt-1"></p>
+<input id="location" class="form-control mt-2" placeholder="📍 Click to get GPS">
+<button onclick="getLocation()" class="btn btn-outline-primary btn-sm mt-1">Get My Location</button>
+<input type="file" id="image" class="form-control mt-2">
+<button id="btnComplaint" onclick="submitComplaint()" class="btn btn-success w-100 mt-3 fw-bold">Submit Complaint to Firebase</button>
+<div class="mt-3 p-2 bg-light rounded small">💬 Chatbase AI Chatbot: Citizen la help karel</div>
+</div>
+</div>
+
+<!-- 3. DASHBOARD TABLE - Saglya Complaints Disnar -->
+<div class="tab-pane fade" id="dashboard">
+<div class="tab-card">
+<h5 class="fw-bold">Citizen Dashboard (Live) - All Complaints</h5>
+<p class="small text-muted">Je je complaint karel te sagla ithe disnar | Auto-refresh</p>
+<div id="complaintList"><p class="text-center text-muted">Loading...</p></div>
+<button onclick="loadComplaints()" class="btn btn-outline-secondary btn-sm w-100 mt-2">🔄 Refresh</button>
+</div>
+</div>
+
+<!-- 4. CONTACT TABLE - Tujha wala Firebase wala -->
+<div class="tab-pane fade" id="contact">
+<div class="tab-card">
+<h5 class="fw-bold">Send a Message</h5>
+<input id="cname" class="form-control mb-2" value="Shravani Mahamulkar">
+<input id="cemail" type="email" class="form-control mb-2" value="shravanimahamulkar06@gmail.com">
+<textarea id="cmessage" class="form-control mb-2" rows="3" placeholder="Write message..."></textarea>
+<button id="btnContact" onclick="sendContact()" class="btn btn-primary w-100 fw-bold">Send to Firebase</button>
+<p class="text-center small text-muted mt-2">Data will save in Firebase -> contacts</p>
+<div id="contactList" class="mt-3"></div>
+</div>
+</div>
+
+<!-- 5. ABOUT TABLE -->
+<div class="tab-pane fade" id="about">
+<div class="tab-card text-center">
+<h5 class="fw-bold">About Project</h5>
+<b>Developed by:</b> Shravani Mahamulkar<br>
+<b>Program:</b> Inplant Training 2026<br>
+<b style="color:#f59e0b">Indradeep Information Technology Pvt Ltd</b><br>
+<b>College:</b> Arvind Gavali College of Engineering<br>
+<hr>
+<p class="small">AI Smart Civic Connect - Citizen Complaint & Smart City Management System with Gemini AI, Chatbase AI, Firebase Realtime Database</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<footer style="background:#0f172a;color:white;text-align:center;padding:12px;font-size:12px">
+Shravani Mahamulkar | AI Smart Civic Connect 2026
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBb6Sx102Ak4XBwcAgEp__sGwqYtDaB7oY",
+  authDomain: "ai-smart-civic-connect.firebaseapp.com",
+  databaseURL: "https://ai-smart-civic-connect-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ai-smart-civic-connect",
+  storageBucket: "ai-smart-civic-connect.firebasestorage.app",
+  messagingSenderId: "763742973098",
+  appId: "1:763742973098:web:b067eda8818aea0e9734d3"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// MAKE GLOBAL
+window.db = db; window.ref = ref; window.push = push; window.onValue = onValue;
+
+// Load complaints
+window.loadComplaints = () => {
+  onValue(ref(db, "complaints"), snap=>{
+    const data = snap.val();
+    const list = document.getElementById("complaintList");
+    if(!data){ list.innerHTML="<p class='text-center'>No complaints yet</p>"; return; }
+    list.innerHTML="";
+    Object.values(data).reverse().forEach(c=>{
+      list.innerHTML+=`<div class='complaint-item'><b>${c.category||'General'}</b> - <span style='background:#fbbf24;padding:2px 8px;border-radius:20px;font-size:11px'>${c.status}</span><br>${c.complaint||c.text}<br><small>📍 ${c.location} | 👤 ${c.email} | 🕒 ${c.timestamp}</small></div>`;
+    });
   });
+};
+loadComplaints();
+onValue(ref(db, "contacts"), snap=>{
+  const data = snap.val();
+  const list = document.getElementById("contactList");
+  if(!data) return;
+  list.innerHTML="<hr><b>Firebase Contacts:</b>";
+  Object.values(data).reverse().slice(0,5).forEach(c=>{
+    list.innerHTML+=`<div class='small bg-light p-2 rounded mt-1'>${c.name} - ${c.message}</div>`;
+  });
+});
 </script>
 
+<script>
+// LOGIN LOGIC
+function login(){
+  let e=document.getElementById('email').value.trim();
+  let p=document.getElementById('password').value.trim();
+  if(!e.includes("@")){ alert("Valid Email tak"); return; }
+  if(p.length<4){ alert("Password min 4"); return; }
+  localStorage.setItem("isLoggedIn","true");
+  localStorage.setItem("userEmail",e);
+  document.getElementById('userShow').innerText="Welcome: "+e+" ✅";
+  alert("Login Successful! "+e);
+}
+function logout(){ localStorage.clear(); alert("Logout Done"); location.reload(); }
+function detectCategory(){
+  let t=document.getElementById('complaintText').value.toLowerCase();
+  let r=document.getElementById('aiResult');
+  if(t.includes("water")) r.innerText="Category: Water Supply";
+  else if(t.includes("road")||t.includes("pothole")) r.innerText="Category: Pothole / Road";
+  else if(t.includes("light")) r.innerText="Category: Street Light";
+  else r.innerText="Category: General Civic Issue";
+}
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(pos=>{
+    document.getElementById('location').value=pos.coords.latitude+","+pos.coords.longitude;
+  },()=>{ document.getElementById('location').value="Pune, Maharashtra (Manual)"; });
+}
+async function submitComplaint(){
+  const btn=document.getElementById('btnComplaint');
+  btn.innerText="Sending..."; btn.disabled=true;
+  try{
+    await push(ref(db, "complaints"), {
+      complaint: document.getElementById('complaintText').value,
+      category: document.getElementById('aiResult').innerText||"General",
+      location: document.getElementById('location').value,
+      email: localStorage.getItem("userEmail")||"guest",
+      status: "Pending",
+      timestamp: new Date().toLocaleString()
+    });
+    btn.innerText="Sent ✅ Done!"; alert("Complaint Submitted! Dashboard madhe bagh");
+    document.getElementById('complaintText').value="";
+    setTimeout(()=>{btn.innerText="Submit Complaint to Firebase"; btn.disabled=false;},2000);
+  }catch(err){ alert(err.message); btn.innerText="Submit Complaint"; btn.disabled=false; }
+}
+async function sendContact(){
+  const btn=document.getElementById('btnContact');
+  btn.innerText="Sending..."; btn.disabled=true;
+  try{
+    await push(ref(db, "contacts"), {
+      name: document.getElementById('cname').value,
+      email: document.getElementById('cemail').value,
+      message: document.getElementById('cmessage').value,
+      timestamp: new Date().toLocaleString()
+    });
+    btn.innerText="Sent ✅ Done!"; alert("Contact Saved to Firebase!");
+    setTimeout(()=>{btn.innerText="Send to Firebase"; btn.disabled=false;},2000);
+  }catch(err){ alert(err.message); btn.disabled=false; }
+}
+// Auto show user
+if(localStorage.getItem("userEmail")){
+  document.getElementById('userShow').innerText="Welcome: "+localStorage.getItem("userEmail")+" ✅";
+}
+</script>
 </body>
 </html>
