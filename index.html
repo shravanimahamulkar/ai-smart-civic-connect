@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,55 +15,4 @@
     <input type="email" id="email" class="form-control mt-3" placeholder="Real Email">
     <input type="password" id="password" class="form-control mt-2" placeholder="Password">
     <button id="loginBtn" class="btn btn-primary w-100 mt-3 rounded-pill">Login</button>
-    <button id="signupBtn" class="btn btn-outline-primary w-100 mt-2 rounded-pill">New Account Bana</button>
-    <p id="msg" class="small text-center mt-2 text-danger"></p>
-  </div>
-</div>
-
-<!-- Login Zalyavar He Disel - Tujhe Adhiche Steps -->
-<div id="mainPage" style="display:none;">
-  <section style="background: linear-gradient(135deg,#0A4DA1,#2563eb); color:white; padding:60px 20px;" class="text-center">
-    <h1 class="fw-bold">AI Smart Civic Connect</h1>
-    <p>Smart Complaint Management System</p>
-  </section>
-
-  <section class="container py-5">
-    <h3 class="fw-bold text-center" style="color:#0A4DA1">Project Process Steps</h3>
-    <div class="row g-3 mt-3 text-center">
-      <div class="col-md-3"><div class="card p-3"><b>1. Write Complaint</b><br><small>User Title, Desc, Location lihito</small></div></div>
-      <div class="col-md-3"><div class="card p-3"><b>2. Firebase Message</b><br><small>Data Firebase madhe Email+Date sobat save hoto</small></div></div>
-      <div class="col-md-3"><div class="card p-3"><b>3. Feedback</b><br><small>Success Message yeto</small></div></div>
-      <div class="col-md-3"><div class="card p-3"><b>4. Dashboard Pending</b><br><small>Complaint Dashboard la Pending diste</small></div></div>
-    </div>
-    <div class="text-center mt-4">
-      <a href="complaint.html" class="btn btn-primary rounded-pill">Create Complaint</a>
-      <a href="dashboard.html" class="btn btn-outline-primary rounded-pill ms-2">Dashboard</a>
-    </div>
-  </section>
-
-  <footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:20px;">Developed by Shravani Mahamulkar</footer>
-</div>
-
-<script type="module">
-import { auth } from "./firebase-config.js";
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-const loginPage = document.getElementById('loginPage');
-const mainPage = document.getElementById('mainPage');
-
-onAuthStateChanged(auth, (user)=>{
-  if(user){ loginPage.style.display="none"; mainPage.style.display="block"; }
-  else{ loginPage.style.display="flex"; mainPage.style.display="none"; }
-});
-
-document.getElementById('loginBtn').onclick = async () => {
-  try{ await signInWithEmailAndPassword(auth, email.value, password.value); }
-  catch(e){ msg.innerText = e.message; }
-};
-document.getElementById('signupBtn').onclick = async () => {
-  try{ await createUserWithEmailAndPassword(auth, email.value, password.value); msg.innerText="Account Banla, Ata Login Kara"; msg.style.color="green"; }
-  catch(e){ msg.innerText = e.message; }
-};
-</script>
-</body>
-</html>
+    <button id="signupBtn
