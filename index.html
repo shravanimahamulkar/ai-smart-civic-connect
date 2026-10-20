@@ -1,76 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Smart Civic Connect</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-body{font-family:'Poppins',sans-serif;background:#f8fafc;margin:0}
-.hero{background:linear-gradient(135deg,#204ac0 0%,#0fb67a 100%);color:white;text-align:center;padding:70px 20px 50px 20px;border-radius:0 0 35px 35px}
-.hero h1{font-weight:800;font-size:42px;line-height:1.2}
-.btn-white{background:white;color:#204ac0;font-weight:700;border-radius:50px;padding:11px 24px;text-decoration:none;display:inline-block}
-.btn-outline{border:2px solid white;color:white;border-radius:50px;padding:11px 24px;text-decoration:none;display:inline-block}
-.card-feature{background:white;border-radius:14px;padding:20px;text-align:center;box-shadow:0 3px 15px rgba(0,0,0,0.06);height:100%;text-decoration:none;color:#1e293b;display:block}
-.card-feature:hover{transform:translateY(-3px);transition:0.2s}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Smart Civic - Login</title>
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#eef2f7;margin:0}
+    .box{background:white;padding:32px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.1);width:100%;max-width:360px}
+    h2{text-align:center;margin:0 0 20px 0;color:#1e293b}
+    input{width:100%;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;outline:none}
+    input:focus{border-color:#2563eb;box-shadow:0 0 0 2px #dbeafe}
+    button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:10px;cursor:pointer;margin-top:14px;font-weight:600;font-size:15px}
+    button:hover{background:#1d4ed8}
+    .info{font-size:13px;color:#64748b;text-align:center;margin-top:12px;background:#f8fafc;padding:8px;border-radius:8px}
+  </style>
 </head>
 <body>
 
-<nav class="navbar bg-white shadow-sm px-3 sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" style="color:#0ca678" href="index.html">AI Smart Civic Connect</a>
-    <div>
-      <a href="dashboard.html" class="btn btn-sm btn-outline-primary">Dashboard</a>
-      <a href="about.html" class="btn btn-sm btn-outline-secondary ms-1">About</a>
-    </div>
-  </div>
-</nav>
+<div class="box">
+  <h2>AI Civic Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Enter your Email" required />
+    <input type="password" id="password" placeholder="Enter Password (min 4)" required />
+    <button type="submit">Login</button>
+  </form>
+  <div class="info">Any Email / Password will work<br>Ex: shravani@gmail.com / 1234</div>
+</div>
 
-<section class="hero">
-  <div class="container">
-    <h1>Smart City,<br>Smart Complaint</h1>
-    <p class="mt-3 fs-6" style="opacity:0.95">AI Based Citizen Complaint & Smart City<br>Management System</p>
-    <small style="opacity:0.9">Powered by Gemini AI + Chatbase AI + Firebase + Flask</small>
-    <div class="mt-4">
-      <a href="complaint.html" class="btn-white me-2">📄 File Complaint with AI</a><br><br>
-      <a href="login.html" class="btn-outline">Get Started</a>
-    </div>
-    <div class="row mt-4 g-2 justify-content-center">
-      <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">✅ Email Verification</span></div>
-      <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">📍 Live GPS</span></div>
-      <div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">🖼️ Image Upload</span></div>
-      <div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">💬 AI Chatbot</span></div>
-      <div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">📄 11 Pages Live</span></div>
-    </div>
-  </div>
-</section>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-<section class="container py-5 text-center">
-  <h3 class="fw-bold" style="color:#0A4DA1">Why AI Smart Civic Connect?</h3>
-  <p class="text-muted">11 Pages | Flask (app.py) | Firebase | Gemini + Chatbase AI</p>
-  <div class="row g-3 mt-4">
-    <div class="col-md-3 col-6"><a href="complaint.html" class="card-feature">🤖<br><b>Gemini AI</b><br><small class="text-muted">Auto category detection</small></a></div>
-    <div class="col-md-3 col-6"><a href="contact.html" class="card-feature">💬<br><b>Chatbase AI</b><br><small class="text-muted">24/7 Chatbot</small></a></div>
-    <div class="col-md-3 col-6"><a href="dashboard.html" class="card-feature">📍<br><b>Live Location</b><br><small class="text-muted">GPS + Storage</small></a></div>
-    <div class="col-md-3 col-6"><a href="analytics.html" class="card-feature">📊<br><b>Analytics</b><br><small class="text-muted">3 Dashboards</small></a></div>
-  </div>
-  <div class="row g-3 mt-3">
-    <div class="col-md-4"><a href="admin-dashboard.html" class="card-feature">👨‍💼 Admin Dashboard</a></div>
-    <div class="col-md-4"><a href="complaint status.html" class="card-feature">📋 Complaint Status</a></div>
-    <div class="col-md-4"><a href="login.html" class="card-feature">🔐 Citizen Login</a></div>
-  </div>
-</section>
+    if (!email.includes("@")) {
+      alert("Please enter a valid Email!");
+      return;
+    }
+    if (password.length < 4) {
+      alert("Password must be at least 4 characters!");
+      return;
+    }
 
-<footer style="background:#0f172a;color:#cbd5e1;text-align:center;padding:22px 15px;font-size:14px;line-height:1.9;margin-top:40px;border-top:3px solid #2563eb">
-  <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
-  <b style="color:white;">Program:</b> Inplant Training 2026 <br>
-  <span style="color:#fbbf24;font-weight:600;">Indradeep Information Technology Pvt Ltd</span> <br>
-  <b style="color:white;">College:</b> Arvind Gavali College of Engineering
-</footer>
+    // Save Login Session
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", email);
+    
+    alert("Login Successful! Welcome " + email);
+    window.location.href = "dashboard.html"; 
+  });
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="chatbot.js"></script>
 </body>
 </html>
