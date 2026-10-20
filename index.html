@@ -1,51 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Smart Civic Connect</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>:root{--blue:#0A4DA1;--green:#00C853;--bg:#F5F7FA}body{font-family:'Poppins',sans-serif;background:var(--bg)} .hero{background:linear-gradient(135deg,#0A4DA1 0%,#00C853 100%);color:white;padding:80px 0 60px;border-radius:0 0 32px 32px} .card{border:none;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}</style>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-<div class="container">
-<a class="navbar-brand fw-bold"><span style="color:#0A4DA1">AI Smart</span> <span style="color:#00C853">Civic Connect</span></a>
-<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="nav">
-<ul class="navbar-nav ms-auto align-items-center gap-2">
-<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="complaint.html">Complaint</a></li>
-<li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-<li class="nav-item"><a class="nav-link" href="analytics.html">Analytics</a></li>
-<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-<li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-<li class="nav-item"><a class="btn btn-sm btn-outline-primary rounded-pill px-3" href="login.html">Login</a></li>
-<li class="nav-item"><a class="btn btn-sm btn-primary rounded-pill px-3" href="register.html">Register</a></li>
-  <li class="nav-item"><a class="btn btn-sm btn-danger rounded-pill px-3" href="#" onclick="logout()">Logout</a></li>
-</ul>
-</div>
-</div>
-</nav>
-
-<section class="hero text-center">
-<div class="container">
-<h1 class="fw-bold display-5">Smart City, Smart Complaint</h1>
-<p class="lead mt-2">AI Based Citizen Complaint & Smart City Management System</p>
-<p class="small opacity-75">Powered by Gemini AI + Chatbase AI + Firebase + Flask</p>
-<div class="mt-4">
-<a href="complaint.html" class="btn btn-light btn-lg fw-bold text-primary rounded-pill px-4">🤖 File Complaint with AI</a>
-<a href="register.html" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Get Started</a>
-</div>
-<div class="row mt-4 g-2 justify-content-center">
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">✅ Email Verification</span></div>
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">📍 Live GPS</span></div>
-<div class="col-auto"><span class="badge bg-white text-primary rounded-pill px-3 py-2">🖼️ Image Upload</span></div>
-<div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">💬 AI Chatbot</span></div>
-<div class="col-auto"><span class="badge bg-white text-success rounded-pill px-3 py-2">📄 11 Pages Live</span></div>
 </div>
 </div>
 </section>
+
+<!-- LOCK - Show this if user is NOT logged in -->
+<div id="loginMessage" style="text-align:center; padding:60px 20px; background:#f8fafc;">
+  <h3 style="color:#0A4DA1;">🔒 Please Login First</h3>
+  <p class="text-muted">You need to login to see the Project Process Steps</p>
+  <a href="login.html" style="background:#0A4DA1; color:white; padding:10px 25px; border-radius:25px; text-decoration:none; display:inline-block; margin-top:10px;">Login Now</a>
+</div>
+
+<!-- Hide this section if user is NOT logged in -->
+<div id="processSteps" style="display:none;">
 
 <section class="container py-5 text-center">
 <h3 class="fw-bold" style="color:#0A4DA1">Why AI Smart Civic Connect?</h3>
@@ -57,6 +22,28 @@
 <div class="col-md-3 col-6"><div class="card p-4 h-100">📊<br><b>Analytics</b><br><small class="text-muted">3 Dashboards</small></div></div>
 </div>
 </section>
+
+</div> <!-- End of processSteps -->
+
+<script type="module">
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+onAuthStateChanged(auth, (user) => {
+  const steps = document.getElementById('processSteps');
+  const loginMsg = document.getElementById('loginMessage');
+  if (user) {
+    // User is logged in - Show process
+    steps.style.display = "block";
+    loginMsg.style.display = "none";
+  } else {
+    // User is NOT logged in - Hide process
+    steps.style.display = "none";
+    loginMsg.style.display = "block";
+  }
+});
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <footer style="background:#0f172a; color:#cbd5e1; text-align:center; padding:22px 15px; font-size:14px; line-height:1.9; margin-top:50px; border-top:3px solid #2563eb; font-family:'Poppins',sans-serif;">
   <b style="color:white;">Developed by:</b> Shravani Mahamulkar <br>
